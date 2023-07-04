@@ -1,31 +1,39 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { AddCategory } from './components/AddCategory';
+import { GifGrid } from './components/GifGrid';
 
 export const SearchGiphyApp = () => {
 
-const [categories, setCategories] = useState( ['Super Smash Bros Ultimate', 'Pokemon'] );
+const [categories, setCategories] = useState( [ 'Dragon Ball'] );
 
-const onAddCategory = () => {
-    setCategories( [ 'Dragon Ball', ...categories ] )
+const onAddCategory = ( newCategory ) => {
+  // console.log(newCategory);
+  // categories.push(newCategory)  ;
+
+if( categories.includes(newCategory)) return;
+
+  setCategories([ newCategory, ...categories ])
 }
 
   return (
     <>
     {/* Título */}
-      <h1>Searh Giphy</h1>
+      <h1>Search Giphy</h1>
 
       {/* Input */}
-      <AddCategory/>
+      <AddCategory 
+      // setCategories= { setCategories }
+      onNewCategory = { (value) => onAddCategory(value)}
+      />
 
       {/* Listado de GIFs */}
-      <button onClick={ onAddCategory }>Agregar</button>
-      <ol>
-        { categories.map(category => {
-          return <li key={ category }>{category}</li>
-        }) }
-  
-
-      </ol>
+        { 
+        categories.map( ( category ) => (
+            <GifGrid 
+            key={ category } 
+            category={ category }/>
+          )) 
+        }
 
       {/* GIF Item */}
 
